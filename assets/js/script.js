@@ -8,14 +8,15 @@ console.log(momentTime);
 //variables
 var APIKey = 'c713cdaa927c21aadd4497732b1e2f54';
 var submitCity = $('#submit-city');
-var cityHistory = $('city-history');
+var cityHistory = $('#city-history');
 var currentWeather = $('#current-weather');
 var fiveDay = $('#five-day');
 
 
-function getCurrentWeather() {
-    var cityInput = $('#cityInput').val().trim();
 
+function getCurrentWeather() {
+    
+    var cityInput = $('#cityInput').val().trim();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+ cityInput + "&appid=" + APIKey;
 
   // Here we run our AJAX call to the OpenWeatherMap API
