@@ -10,8 +10,18 @@ var submitCity = $('#submit-city');
 var cityHistory = $('#city-history');
 var currentWeather = $('#current-weather');
 var fiveDay = $('#five-day');
-var keepHistory = JSON.parse(localStorage.getItem("searchHistory") || [] );
+// var searchHistory = [];
+var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 
+console.log(searchHistory);
+
+function loadHistory() {
+    for (var i = 0; i < searchHistory.length; i++) {
+        var historyDivs = $('<div>');
+        historyDivs.text(searchHistory[i]);
+        historyDivs.appendTo(cityHistory);
+    }
+}
 
 function getCurrentWeather() {
     var cityInput = $('#cityInput').val().trim();
@@ -28,6 +38,12 @@ $.ajax({
         
         console.log(weatherData);
         console.log(queryURL);
+        var farenTemp = Math.floor((weatherData.main.temp - 273.15) * 1.8 + 32);
+
+        console.log("Wind Speed: " + weatherData.wind.speed);
+        console.log("Humidity: " + weatherData.main.humidity);
+        console.log("Current Temperature (F): " + farenTemp);
+        console.log("City: " + weatherData.name);
 
         getMoreWeather(cityInput, queryURL);
 
@@ -41,25 +57,23 @@ function getMoreWeather (city, url) {
 
 }
 
+
 submitCity.on('click', function(event) {
     event.preventDefault();
+
     var cityHistDiv = $('<div>');
     var cityInput = $('#cityInput').val().trim();
 
     cityHistDiv.text(cityInput);
+
+    searchHistory.push(cityInput);
+
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    
     cityHistDiv.prependTo(cityHistory);
-
-
-    // keepHistory.push(cityInput);
-
-    localStorage.setItem("searchHistory", JSON.stringify(keepHistory));
-
-    console.log(cityInput);
-
-
     getCurrentWeather();
 });
 
 $( document ).ready(function() {
-//delete this and you break
+loadHistory();
 });
