@@ -47,10 +47,12 @@ $.ajax({
         var farenTemp = Math.floor((weatherData.main.temp - 273.15) * 1.8 + 32);
         var feelsLike = Math.floor((weatherData.main.feels_like - 273.15) * 1.8 + 32);
         var imgIcon = $('<img>');
+        imgIcon.attr('class', 'image');
         imgIcon.attr('src', 'http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png');
         console.log(imgIcon);
 
-        $('<h3>').text(weatherData.name + ", " + momentTime + " " + imgIcon).appendTo(currentWeather);
+        $('<div>').appendTo(currentWeather).append(imgIcon);
+        $('<h3>').text(weatherData.name + ", " + momentTime).appendTo(currentWeather);
         $('<h3>').text("Current Temperature (F): " + farenTemp).appendTo(currentWeather);
         $('<h3>').text("Feels Like: " + feelsLike).appendTo(currentWeather);
         $('<h3>').text("Humidity: " + weatherData.main.humidity + "%").appendTo(currentWeather);
@@ -121,7 +123,7 @@ $.ajax({
     .then(function(forecastData) {
         console.log(forecastData);
         for (var j = 0; j <= forecastData.list.length; j++) {
-            
+
         }
 
     });
