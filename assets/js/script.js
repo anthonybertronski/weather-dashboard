@@ -19,6 +19,7 @@ function loadHistory() {
     for (var i = 0; i < searchHistory.length; i++) {
         var historyDivs = $('<div>');
         historyDivs.text(searchHistory[i]);
+        historyDivs.addClass('list-group-item');
         historyDivs.addClass('saved-city');
         historyDivs.attr('data-city', searchHistory[i]);
         historyDivs.prependTo(cityHistory);
@@ -43,6 +44,7 @@ $.ajax({
         console.log(queryURL);
         console.log(weatherData.weather[0].icon);
         currentWeather.empty();
+        $('#icon').empty();
 
         var farenTemp = Math.floor((weatherData.main.temp - 273.15) * 1.8 + 32);
         var feelsLike = Math.floor((weatherData.main.feels_like - 273.15) * 1.8 + 32);
@@ -51,7 +53,7 @@ $.ajax({
         imgIcon.attr('src', 'http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png');
         console.log(imgIcon);
 
-        $('<div>').appendTo(currentWeather).append(imgIcon);
+        $('#icon').append(imgIcon);
         $('<h3>').text(weatherData.name + ", " + momentTime).appendTo(currentWeather);
         $('<h3>').text("Current Temperature (F): " + farenTemp).appendTo(currentWeather);
         $('<h3>').text("Feels Like: " + feelsLike).appendTo(currentWeather);
@@ -122,7 +124,16 @@ $.ajax({
     // We store all of the retrieved data inside of an object called "response"
     .then(function(forecastData) {
         console.log(forecastData);
-        for (var j = 0; j <= forecastData.list.length; j++) {
+
+        for (var j = 0; j < 5; j++) {
+            fiveDayFaren = Math.floor(forecastData.list[j+1].main.temp);
+            console.log(fiveDayFaren);
+
+            $('<div class="card dayFives">').appendTo(fiveDay);
+            $('<div class="card-body fives">').appendTo('.dayFives');
+            $('<div>').appendTo('.fives').append('<img class="images" src=""/>');
+            $('.images').attr('src', 'http://openweathermap.org/img/wn/' + forecastData.list[j+1].weather[0].icon + '@2x.png');
+            $('<div>').text("Temperature: " + fiveDayFaren).appendTo(".fives");
 
         }
 
