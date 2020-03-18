@@ -50,7 +50,7 @@ $.ajax({
         var feelsLike = Math.floor((weatherData.main.feels_like - 273.15) * 1.8 + 32);
         var imgIcon = $('<img>');
         imgIcon.attr('class', 'image');
-        imgIcon.attr('src', 'http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png');
+        imgIcon.attr('src', 'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png');
         console.log(imgIcon);
 
         $('#icon').append(imgIcon);
@@ -127,7 +127,9 @@ $.ajax({
             var cardBody = $('<div>');
             cardBody.addClass('card-body');
             var cardIcon = $('<img class="images"src =""/>')
-            cardIcon.attr('src',)
+            cardIcon.attr('src', 'https://openweathermap.org/img/wn/' + forecastData.list[j].weather[0].icon + '@2x.png')
+            cardIcon.appendTo(cardBody);
+            $('<div>').text(fiveDayDate).appendTo(cardBody);
             var cardText = $('<p>');
             cardText.addClass('card-text');
             cardText.text("Temperature (F): " + fiveDayFaren);
@@ -145,7 +147,7 @@ $.ajax({
             // $('<div class="card dayFives">').appendTo(fiveDay);
             // $('<div class="card-body fives">').appendTo('.dayFives');
             // $('<div>').appendTo('.fives').append('<img class="images" src=""/>');
-            // $('.images').attr('src', 'http://openweathermap.org/img/wn/' + forecastData.list[j].weather[0].icon + '@2x.png');
+            // $('.images').attr('src', 'https://openweathermap.org/img/wn/' + forecastData.list[j].weather[0].icon + '@2x.png');
             
             // $('<div>').text(fiveDayDate);
 
