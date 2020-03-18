@@ -126,14 +126,16 @@ $.ajax({
         console.log(forecastData);
 
         for (var j = 0; j < 5; j++) {
-            fiveDayFaren = Math.floor(forecastData.list[j+1].main.temp);
+            var fiveDayDate = moment().add(j + 1, "day").format("MMMM Do YYYY");
+            fiveDayFaren = Math.floor(forecastData.list[j].main.temp);
             console.log(fiveDayFaren);
 
-            $('<div class="card dayFives">').appendTo(fiveDay);
-            $('<div class="card-body fives">').appendTo('.dayFives');
-            $('<div>').appendTo('.fives').append('<img class="images" src=""/>');
-            $('.images').attr('src', 'http://openweathermap.org/img/wn/' + forecastData.list[j+1].weather[0].icon + '@2x.png');
-            $('<div>').text("Temperature: " + fiveDayFaren).appendTo(".fives");
+            // $('<div class="card dayFives">').appendTo(fiveDay);
+            // $('<div class="card-body fives">').appendTo('.dayFives');
+            // $('<div>').appendTo('.fives').append('<img class="images" src=""/>');
+            // $('.images').attr('src', 'http://openweathermap.org/img/wn/' + forecastData.list[j].weather[0].icon + '@2x.png');
+            $('<div>').text(fiveDayDate);
+            $('<div>').text("Temperature: " + fiveDayFaren).appendTo(fiveDay);
 
         }
 
