@@ -74,33 +74,24 @@ $.ajax({
                 console.log(moreData);
                 console.log(cityInput);
 
-                // $("<h4>" + "UV Index: <span id=" + city + "></span></h4>").appendTo(currentWeather);
-
-                if (moreData.value <= 2) {
-                    $('#city').addClass('green');
-                }
-                else if (moreData.value <= 5) {
-                    $('#city').addClass('yellow');
-                }
-                else if (moreData.value <= 7) {
-                    $('#city').addClass('orange');
-                } 
-                else if (moreData.value <= 10) {
-                    $('#city').addClass('red');
-                } 
-                else if (moreData.value > 10) {
-                    $('#city').addClass('purple');
-                } 
-                
                 $('<h3 id = ' + city + '>').text("UV Index: " + moreData.value).appendTo(currentWeather);
 
-                // document.getElementById(city).text(moreData.value);
-
-                // $("<h4>" + "UV Index: " + "<span id=" + city + "> " + moreData.value + "</span></h4>").appendTo(currentWeather);
-
-
-                // $('<h3 id = ' + city + '>').text("UV Index: " + moreData.value).appendTo(currentWeather);
-
+                if (moreData.value <= 2) {
+                    $('#' + city).addClass('green');
+                }
+                else if (moreData.value <= 5) {
+                    $('#' + city).addClass('yellow');
+                }
+                else if (moreData.value <= 7) {
+                    $('#' + city).addClass('orange');
+                } 
+                else if (moreData.value <= 10) {
+                    $('#' + city).addClass('red');
+                } 
+                else if (moreData.value > 10) {
+                    $('#' + city).addClass('purple');
+                } 
+                
             });
 
         getMoreWeather(cityInput);
@@ -124,18 +115,36 @@ $.ajax({
     // We store all of the retrieved data inside of an object called "response"
     .then(function(forecastData) {
         console.log(forecastData);
+        fiveDay.empty();
 
         for (var j = 0; j < 5; j++) {
             var fiveDayDate = moment().add(j + 1, "day").format("MMMM Do YYYY");
             fiveDayFaren = Math.floor(forecastData.list[j].main.temp);
             console.log(fiveDayFaren);
 
+            var card = $('<div>');
+            card.addClass('card');
+            var cardBody = $('<div>');
+            cardBody.addClass('card-body');
+            var cardText = $('<p>');
+            cardText.addClass('card-text');
+            cardText.text("Temperature (F): " + fiveDayFaren);
+            cardBody.append(cardText);
+            card.append(cardBody);
+
+            fiveDay.append(card);
+            console.log(card);
+
+            // // card.attr('id', 'card-' + [j]);
+            // $('<div class="card-body" id="card-'+ [j] + '">').appendTo(card);
+            // $('<h5>').text("Temperature (F): " + fiveDayFaren).appendTo('#card-' + [j]);
+
             // $('<div class="card dayFives">').appendTo(fiveDay);
             // $('<div class="card-body fives">').appendTo('.dayFives');
             // $('<div>').appendTo('.fives').append('<img class="images" src=""/>');
             // $('.images').attr('src', 'http://openweathermap.org/img/wn/' + forecastData.list[j].weather[0].icon + '@2x.png');
-            $('<div>').text(fiveDayDate);
-            $('<div>').text("Temperature: " + fiveDayFaren).appendTo(fiveDay);
+            
+            // $('<div>').text(fiveDayDate);
 
         }
 
@@ -162,7 +171,7 @@ submitCity.on('click', function(event) {
 });
 
 $(document).on("click", ".saved-city", function(){
-    var city = $(this).attr("data-city")
+    var city = $(this).attr("data-city");
     getCurrentWeather(city);
 })
 

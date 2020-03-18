@@ -4,7 +4,7 @@
 https://sammiefrog.github.io/weather-dashboard/
 
 ## Description
-This is a quiz made with javascript for functionality, with questions about me to test how well people know me. You earn points when you get questions correct, and you also earn more time. When you answer incorrectly you lose ten seconds. At the end you can save your name and score.
+This is a weather dashboard made with api calls from Open Weather Map.
 
 ## Technology Stack
 HTML, Bootstrap, JQuery
@@ -16,8 +16,7 @@ HTML, Bootstrap, JQuery
 To test your knowledge on me as a person.
 
 ## Credits
-www.w3schools.com 
-
+www.openweathermap.com
 
 ## Contact
 * #### Name: Sammantha Sasenick (@sammiefrog)
