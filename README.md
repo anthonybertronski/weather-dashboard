@@ -16,7 +16,7 @@ HTML5, Bootstrap, Javascript, JQuery, AJAX
 To find out the current weather and five day forecast for any city you type into the search field.
 
 ## Credits
-www.openweathermap.com
+www.openweathermap.org
 
 ## Contact
 * #### Name: Sammantha Sasenick (@sammiefrog)
