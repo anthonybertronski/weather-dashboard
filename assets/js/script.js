@@ -71,15 +71,16 @@ function getMoreWeather (city) {
 function getCurrentWeather(city) {
     var cityInput = city || $('#cityInput').val().trim();
 
+    if (cityInput !== "") {
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+ cityInput + "&appid=" + APIKey;
 
     
-  // Here we run our AJAX call to the OpenWeatherMap API
-$.ajax({
-    url: queryURL,
-    method: "GET"
-  })
-    // We store all of the retrieved data inside of an object called "response"
+  // Here we run our first ajax call for current weather
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+     })
+    // We store all of the retrieved data inside of an object called "weatherData"
     .then(function(weatherData) {
         
         currentWeather.empty();
@@ -135,6 +136,8 @@ $.ajax({
         getMoreWeather(cityInput);
 
     });
+    //end of the if
+    }
 
 }
 
@@ -146,17 +149,20 @@ submitCity.on('click', function(event) {
     var cityHistDiv = $('<div>');
     var cityInput = $('#cityInput').val().trim();
 
-    cityHistDiv.attr('data-city', cityInput);
-    cityHistDiv.addClass('saved-city');
-    cityHistDiv.addClass('list-group-item');
-    cityHistDiv.text(cityInput);
+    if (cityInput !== "") {
 
-    searchHistory.unshift(cityInput);
+        cityHistDiv.attr('data-city', cityInput);
+        cityHistDiv.addClass('saved-city');
+        cityHistDiv.addClass('list-group-item');
+        cityHistDiv.text(cityInput);
 
-    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+        searchHistory.unshift(cityInput);
+
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     
-    cityHistDiv.prependTo(cityHistory);
-
+        cityHistDiv.prependTo(cityHistory);
+    }
+    
     getCurrentWeather();
     $('#cityInput').val("");
 });
