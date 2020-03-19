@@ -7,13 +7,13 @@ https://sammiefrog.github.io/weather-dashboard/
 This is a weather dashboard made with api calls from Open Weather Map.
 
 ## Technology Stack
-HTML, Bootstrap, JQuery
+HTML, Bootstrap, JQuery, AJAX
 
 ## Contributors
 @sammiefrog
 
 ## Usage
-To test your knowledge on me as a person.
+To find out the weather in any city you wish.
 
 ## Credits
 www.openweathermap.com

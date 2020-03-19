@@ -29,10 +29,8 @@ function loadHistory() {
 
 function getMoreWeather (city) {
 
-    var queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&cnt=5&appid=" + APIKey + "&units=imperial"
-    console.log(city);
-    console.log(queryURL3);
-    
+    var queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial"
+
     $.ajax({
         url: queryURL3,
         method: "GET"
@@ -41,24 +39,30 @@ function getMoreWeather (city) {
         .then(function(forecastData) {
             console.log(forecastData);
             fiveDay.empty();
+            $('#title').empty();
+
+
+            var title = $('#title');
+            $('<h2>').text("5-Day Forecast:").appendTo(title);
     
-            for (var j = 0; j < 5; j++) {
-                var fiveDayDate = moment().add(j + 1, "day").format("L");
-                fiveDayFaren = Math.floor(forecastData.list[j].main.temp);
-                console.log(fiveDayFaren);
+            for (var j = 0; j < forecastData.list.length; j++) {
+                if (forecastData.list[j].dt_txt.indexOf("00:00:00") !== -1) {
+                    fiveDayFaren = Math.floor(forecastData.list[j].main.temp);
+
+                    var fiveDayDate = moment(new Date(forecastData.list[j].dt_txt).toLocaleDateString()).format("LL");
     
-                var card = $('<div class ="card">');
-                var cardBody = $('<div class="card-body">');
+                    var card = $('<div class ="card bg-info border-light">');
+                    var cardBody = $('<div class="card-body">');
     
-                var cardIcon = $('<img class="images" src ="https://openweathermap.org/img/wn/' + forecastData.list[j].weather[0].icon + '@2x.png"/>')
-                cardIcon.appendTo(cardBody);
-                $('<p class="card-text">').text(fiveDayDate).appendTo(cardBody);
-                $('<p class="card-text">').text("Temperature (F): " + fiveDayFaren).appendTo(cardBody);
-                $('<p class="card-text">').text("Humidity: " + forecastData.list[j].main.humidity + " %").appendTo(cardBody);
+                    var cardIcon = $('<img class="images" src ="https://openweathermap.org/img/wn/' + forecastData.list[j].weather[0].icon + '@2x.png"/>')
+                    cardIcon.appendTo(cardBody);
+                    $('<p class="card-text">').text(fiveDayDate).appendTo(cardBody);
+                    $('<p class="card-text">').text("Temp. (F): " + fiveDayFaren).appendTo(cardBody);
+                    $('<p class="card-text">').text("Humidity: " + forecastData.list[j].main.humidity + " %").appendTo(cardBody);
     
-                card.append(cardBody);
-                fiveDay.append(card);
-    
+                    card.append(cardBody);
+                    fiveDay.append(card);
+                }
             }
     
         });
@@ -78,20 +82,18 @@ $.ajax({
     // We store all of the retrieved data inside of an object called "response"
     .then(function(weatherData) {
         
-        console.log(weatherData);
-        console.log(queryURL);
-        console.log(weatherData.weather[0].icon);
         currentWeather.empty();
         $('#icon').empty();
 
         var farenTemp = Math.floor((weatherData.main.temp - 273.15) * 1.8 + 32);
         var feelsLike = Math.floor((weatherData.main.feels_like - 273.15) * 1.8 + 32);
+
         var imgIcon = $('<img>');
         imgIcon.attr('class', 'image');
         imgIcon.attr('src', 'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png');
-        console.log(imgIcon);
 
         $('#icon').append(imgIcon);
+        $('<h2 class="text-white">').text("Current Weather: ").appendTo(currentWeather);
         $('<h3>').text(weatherData.name + ", " + momentTime).appendTo(currentWeather);
         $('<h3>').text("Current Temperature (F): " + farenTemp).appendTo(currentWeather);
         $('<h3>').text("Feels Like: " + feelsLike).appendTo(currentWeather);
@@ -109,8 +111,6 @@ $.ajax({
           })
             // We store all of the retrieved data inside of an object called "response"
             .then(function(moreData) {
-                console.log(moreData);
-                console.log(cityInput);
 
                 $('<h3 id = ' + city + '>').text("UV Index: " + moreData.value).appendTo(currentWeather);
 
