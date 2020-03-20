@@ -9,7 +9,9 @@
     <!-- my css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- moment -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>    
+    <script src="include.js"  type="text/javascript"></script>
+
         <title>Weather Dashboard</title>
 </head>
 <body>
@@ -19,14 +21,15 @@
         <h1 class="text-center display-1">Weather Dashboard</h1>
     </div>
 </header>
-<main>
+<main>    
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <form>
                 <div class="form-group">
-                  <label for="cityInput">Search By City:</label>
-                  <input type="text" class="form-control" id="cityInput" aria-describedby="emailHelp">
+                  <script type='text/javascript'>$Spelling.SpellCheckAsYouType('all')</script>
+                  <label for="cityInput">Search By City:</label>                  
+                  <input type="text" class="form-control" id="cityInput" aria-describedby="emailHelp">                  
                 </div>
                 <button type="submit" class="btn btn-info" id="submit-city">Submit</button>
               </form>
